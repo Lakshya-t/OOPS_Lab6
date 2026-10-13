@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"<Unnamed>","l":"BattleOfWallRose"},{"p":"<Unnamed>","l":"TitanShifter.CoordinatePower"},{"p":"<Unnamed>","l":"ScoutSquad"},{"p":"<Unnamed>","l":"TitanShifter.TitanForm"},{"p":"<Unnamed>","l":"TitanShifter"},{"p":"<Unnamed>","l":"WallDistrict"}];updateSearchResults();

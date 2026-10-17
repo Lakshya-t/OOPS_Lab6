@@ -125,12 +125,4 @@ public class Visible {
         assertTrue(result);
         assertTrue(battle.getTotalHumanityDefenseScore() >= 100);
     }
-
-    // 1.0 marks: Decodes inverted scout distress signal (LeetCode 151)
-    @Test
-    void testReverseDistressSignalBasic() {
-        String input = "advance towards the forest";
-        String expected = "forest the towards advance";
-        assertEquals(expected, ScoutSquad.reverseDistressSignal(input));
-    }
 }

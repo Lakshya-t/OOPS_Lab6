@@ -19,24 +19,19 @@ public class TitanShifter {
     private Boolean isHostile;
 
     /**
-     * Constructor 1: Parses raw field report intelligence strings into wrapper types.<br>
+     * Constructor 1: Initializes the shifter by parsing raw field report intelligence strings.
      * <br>
-     * <b>Implementation Instructions:</b><br>
-     * 1. Assign {@code this.name = name}.<br>
-     * 2. Parse {@code powerStr} using {@code Integer.valueOf(powerStr)}.<br>
-     * 3. Parse {@code heightStr} using {@code Double.valueOf(heightStr)}.<br>
-     * 4. Parse {@code hostileStr} using {@code Boolean.valueOf(hostileStr)}.<br>
-     * <br>
-     * <b>Conceptual Notes &amp; Edge Cases:</b><br>
-     * - {@code Boolean.valueOf(String)} only evaluates to {@code true} for case-insensitive "true". 
-     *   Strings like "yes", "1", or null evaluate to {@code false}.<br>
-     * - Null or non-numeric {@code powerStr} or {@code heightStr} throws {@code NumberFormatException}.
+     * Parses the string arguments using wrapper class methods:
+     * <ul>
+     *   <li>{@code powerStr} parsed to Integer using {@code Integer.valueOf(powerStr)}</li>
+     *   <li>{@code heightStr} parsed to Double using {@code Double.valueOf(heightStr)}</li>
+     *   <li>{@code hostileStr} parsed to Boolean using {@code Boolean.valueOf(hostileStr)}</li>
+     * </ul>
      *
      * @param name        shifter name
      * @param powerStr    power level as string
      * @param heightStr   height in meters as string
      * @param hostileStr  hostility as string ("true"/"false")
-     * @throws NumberFormatException if powerStr or heightStr is invalid
      */
     public TitanShifter(String name, String powerStr, String heightStr, String hostileStr) {
         this.name = name;
@@ -60,22 +55,85 @@ public class TitanShifter {
         this.isHostile = isHostile;
     }
 
-    // Getters and Setters
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    // ---- Getters and setters (provided - already implemented; nothing to change) ----
 
-    public Integer getPowerLevel() { return powerLevel; }
-    public void setPowerLevel(Integer powerLevel) { this.powerLevel = powerLevel; }
+    /**
+     * Gets the shifter's name.
+     *
+     * @return shifter name
+     */
+    public String getName() {
+        return name;
+    }
 
-    public Double getHeightMeters() { return heightMeters; }
-    public void setHeightMeters(Double heightMeters) { this.heightMeters = heightMeters; }
+    /**
+     * Sets the shifter's name.
+     *
+     * @param name shifter name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Boolean getIsHostile() { return isHostile; }
-    public void setIsHostile(Boolean isHostile) { this.isHostile = isHostile; }
+    /**
+     * Gets the combat power level.
+     *
+     * @return power level as Integer
+     */
+    public Integer getPowerLevel() {
+        return powerLevel;
+    }
+
+    /**
+     * Sets the combat power level.
+     *
+     * @param powerLevel power level as Integer
+     */
+    public void setPowerLevel(Integer powerLevel) {
+        this.powerLevel = powerLevel;
+    }
+
+    /**
+     * Gets the titan height in meters.
+     *
+     * @return height in meters as Double
+     */
+    public Double getHeightMeters() {
+        return heightMeters;
+    }
+
+    /**
+     * Sets the titan height in meters.
+     *
+     * @param heightMeters height in meters as Double
+     */
+    public void setHeightMeters(Double heightMeters) {
+        this.heightMeters = heightMeters;
+    }
+
+    /**
+     * Gets whether the shifter is hostile toward humanity.
+     *
+     * @return hostility status as Boolean
+     */
+    public Boolean getIsHostile() {
+        return isHostile;
+    }
+
+    /**
+     * Sets whether the shifter is hostile toward humanity.
+     *
+     * @param isHostile hostility status as Boolean
+     */
+    public void setIsHostile(Boolean isHostile) {
+        this.isHostile = isHostile;
+    }
 
     /**
      * Non-static inner class representing the titan transformation form.<br>
-     * Has direct access to outer {@link TitanShifter}'s instance fields.
+     * Has direct access to outer {@link TitanShifter}'s instance fields.<br>
+     * <br>
+     * <b>This class is already fully implemented and provided. Do NOT change anything in it.</b>
      */
     public class TitanForm {
 
@@ -104,8 +162,23 @@ public class TitanShifter {
             this.transformCount = transformCount;
         }
 
-        public Integer getTransformCount() { return transformCount; }
-        public void setTransformCount(Integer transformCount) { this.transformCount = transformCount; }
+        /**
+         * Gets the transformation count.
+         *
+         * @return number of transformations as Integer
+         */
+        public Integer getTransformCount() {
+            return transformCount;
+        }
+
+        /**
+         * Sets the transformation count.
+         *
+         * @param transformCount count as Integer
+         */
+        public void setTransformCount(Integer transformCount) {
+            this.transformCount = transformCount;
+        }
 
         /**
          * Calculates power surge during titan form transformation.<br>
@@ -120,30 +193,43 @@ public class TitanShifter {
     }
 
     /**
-     * Static nested class representing the mysterious Coordinate (Founding Titan) ability.<br>
-     * Does NOT have implicit access to enclosing instance fields; requires an explicit object reference.
-     * Static members of the enclosing class can be accessed directly.
+     * Static nested class representing the Coordinate (Founding Titan) ability.<br>
+     * Its getter and setter are provided (nothing to change there); only
+     * {@code triggerCoordinate} needs to be implemented.
      */
     public static class CoordinatePower {
+
+        /** Private constructor to prevent instantiation of static nested utility class. */
+        private CoordinatePower() {}
 
         /** Number of pure titans currently commanded. */
         private static Integer activeTitansControlled = 0;
 
+        /**
+         * Gets the number of pure titans currently commanded.
+         *
+         * @return active controlled titan count as Integer
+         */
         public static Integer getActiveTitansControlled() {
             return activeTitansControlled;
         }
 
+        /**
+         * Sets the number of pure titans currently commanded.
+         *
+         * @param count count as Integer
+         */
         public static void setActiveTitansControlled(Integer count) {
             activeTitansControlled = count;
         }
 
         /**
-         * Triggers the Coordinate power using an encrypted binary signal.<br>
-         * Parses {@code commandSignal} with radix 2 (binary).<br>
-         * If the shifter is friendly (not hostile) and signal &gt; 0, controls titans.<br>
-         * Sets {@code activeTitansControlled = decodedSignal * 10} and returns true.
+         * Triggers the Coordinate power using an encrypted binary signal.
+         * Decodes commandSignal using base 2.
+         * If the shifter is friendly (not hostile) and decoded signal is greater than 0,
+         * sets activeTitansControlled = decodedSignal * 10 and returns true.
          *
-         * @param shifter       the shifter attempting to scream/trigger coordinate
+         * @param shifter       the shifter attempting to trigger coordinate
          * @param commandSignal binary signal string (e.g. "1010")
          * @return true if coordinate successfully commanded pure titans, false otherwise
          */
@@ -161,20 +247,23 @@ public class TitanShifter {
     }
 
     /**
-     * Assesses a shifter's combat readiness via a 4-step boxing/unboxing sequence.<br>
-     * 1. {@code power++} (Auto-unboxes, increments int, re-boxes into Integer)<br>
-     * 2. {@code Integer score = power + (power * 3);} (Unboxes, computes, re-boxes)<br>
-     * 3. {@code int rawScore = power + (power * 3);} (Unboxes, computes, NO re-boxing)<br>
-     * 4. Returns {@code new int[]{score, rawScore}}
+     * Assesses a shifter's combat readiness from its initial power rating.
+     * <p>
+     * First increase the power rating by 1. Using this updated power, compute:
+     * </p>
+     * <ul>
+     *   <li>{@code score} (stored as an {@code Integer}) = power + (power * 3)</li>
+     *   <li>{@code rawScore} (stored as an {@code int}) = power + (power * 3)</li>
+     * </ul>
+     * Return both values in the order [score, rawScore].
      *
      * @param power initial power rating as Integer
      * @return int array with [score, rawScore]
-     * @throws NullPointerException if power is null
      */
     public static int[] assessCombatReadiness(Integer power) {
-        power++;
-        Integer score = power + (power * 3);
-        int rawScore = power + (power * 3);
+        power++;                                  // unbox, increment, re-box
+        Integer score = power + (power * 3);      // unbox, compute, re-box
+        int rawScore = power + (power * 3);       // unbox, compute, no re-boxing
         return new int[]{score, rawScore};
     }
 }

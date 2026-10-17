@@ -35,16 +35,19 @@ public class ScoutSquad {
     }
 
     /**
-     * Constructor 2 (Varargs Overloaded): Assembles a squad with a leader and arbitrary members.
-     * Computes squadPower as members.length * 50 + 100.
-     * Squad is not deployed initially (deployed is set to false).
+     * Constructor 2 (Varargs Overloaded): Assembles a squad with a leader and squad members.
+     * The varargs parameter may be empty (no squad members).
+     * Computes squadPower as members.length * 50 + 100, stored as an Integer.
+     * Sets deployed to the Boolean representation of false (the squad is not deployed initially).
      *
      * @param leader  squad leader's name
-     * @param members additional squad members (varargs)
+     * @param members squad members (varargs; may be empty)
      */
     public ScoutSquad(String leader, String... members) {
         // TODO: implement this constructor
     }
+
+    // ---- Getters and setters (provided - already implemented; nothing to change) ----
 
     /**
      * Gets the squad leader's name.
@@ -52,8 +55,7 @@ public class ScoutSquad {
      * @return leader's name
      */
     public String getSquadLeader() {
-        // TODO: implement this method
-        return null;
+        return squadLeader;
     }
 
     /**
@@ -62,7 +64,7 @@ public class ScoutSquad {
      * @param squadLeader leader's name
      */
     public void setSquadLeader(String squadLeader) {
-        // TODO: implement this method
+        this.squadLeader = squadLeader;
     }
 
     /**
@@ -71,8 +73,7 @@ public class ScoutSquad {
      * @return array of member names
      */
     public String[] getMembers() {
-        // TODO: implement this method
-        return null;
+        return members;
     }
 
     /**
@@ -81,7 +82,7 @@ public class ScoutSquad {
      * @param members array of member names
      */
     public void setMembers(String[] members) {
-        // TODO: implement this method
+        this.members = members;
     }
 
     /**
@@ -90,8 +91,7 @@ public class ScoutSquad {
      * @return squad power as Integer
      */
     public Integer getSquadPower() {
-        // TODO: implement this method
-        return null;
+        return squadPower;
     }
 
     /**
@@ -100,7 +100,7 @@ public class ScoutSquad {
      * @param squadPower squad power as Integer
      */
     public void setSquadPower(Integer squadPower) {
-        // TODO: implement this method
+        this.squadPower = squadPower;
     }
 
     /**
@@ -109,8 +109,7 @@ public class ScoutSquad {
      * @return deployment status as Boolean
      */
     public Boolean isDeployed() {
-        // TODO: implement this method
-        return null;
+        return deployed;
     }
 
     /**
@@ -119,7 +118,7 @@ public class ScoutSquad {
      * @param deployed deployment status as Boolean
      */
     public void setDeployed(Boolean deployed) {
-        // TODO: implement this method
+        this.deployed = deployed;
     }
 
     /**
@@ -149,31 +148,6 @@ public class ScoutSquad {
      * @return String array containing [leader, members[0], members[1], ...]
      */
     public String[] getFullRoster() {
-        // TODO: implement this method
-        return null;
-    }
-
-    /**
-     * Decodes an inverted distress signal broadcast by scouts during titan ambush.
-     * Reverses the order of words in the transmission string.
-     * Words should be separated by a single space with no leading or trailing spaces.
-     * <br>
-     * Useful String methods hint:
-     * <ul>
-     *   <li><code>"  hello world  ".trim()</code> &rarr; <code>"hello world"</code></li>
-     *   <li><code>"hello world".split("\\s+")</code> &rarr; <code>new String[]{"hello", "world"}</code></li>
-     * </ul>
-     *
-     * Example: "advance towards the forest" -> "forest the towards advance"
-     * Example: "  breach at wall rose  " -> "rose wall at breach"
-     *
-     * @param rawSignal original distress transmission string
-     * @return decoded signal with words in reversed order separated by a single space
-     */
-    public static String reverseDistressSignal(String rawSignal) {
-        // Hint examples:
-        // "  hello world  ".trim() -> "hello world"
-        // "hello world".split("\\s+") -> ["hello", "world"]
         // TODO: implement this method
         return null;
     }

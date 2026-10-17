@@ -47,10 +47,12 @@ public class WallDistrict {
         // TODO: implement this constructor
     }
 
+    // ---- Getters and setters (TODO: implement all of them) ----
+
     /**
-     * Gets the district name.
+     * Returns the name of this district.
      *
-     * @return district name
+     * @return the district name
      */
     public String getDistrictName() {
         // TODO: implement this method
@@ -58,18 +60,18 @@ public class WallDistrict {
     }
 
     /**
-     * Sets the district name.
+     * Updates the name of this district.
      *
-     * @param districtName district name
+     * @param districtName the new district name
      */
     public void setDistrictName(String districtName) {
         // TODO: implement this method
     }
 
     /**
-     * Gets the wall integrity percentage.
+     * Returns the defense integrity percentage of the outer gates.
      *
-     * @return wall integrity as Integer
+     * @return the wall integrity
      */
     public Integer getWallIntegrity() {
         // TODO: implement this method
@@ -77,18 +79,18 @@ public class WallDistrict {
     }
 
     /**
-     * Sets the wall integrity percentage.
+     * Updates the defense integrity percentage of the outer gates.
      *
-     * @param wallIntegrity wall integrity as Integer
+     * @param wallIntegrity the new wall integrity
      */
     public void setWallIntegrity(Integer wallIntegrity) {
         // TODO: implement this method
     }
 
     /**
-     * Gets the 2D grid of confirmed titan kills.
+     * Returns the 2D grid of confirmed titan kills (rows are sectors, columns are squads).
      *
-     * @return 2D array of kill counts
+     * @return the titan kill matrix
      */
     public Integer[][] getTitanKillMatrix() {
         // TODO: implement this method
@@ -96,18 +98,18 @@ public class WallDistrict {
     }
 
     /**
-     * Sets the 2D grid of confirmed titan kills.
+     * Updates the 2D grid of confirmed titan kills (rows are sectors, columns are squads).
      *
-     * @param titanKillMatrix 2D array of kill counts
+     * @param titanKillMatrix the new titan kill matrix
      */
     public void setTitanKillMatrix(Integer[][] titanKillMatrix) {
         // TODO: implement this method
     }
 
     /**
-     * Gets the spotted Titan Shifter in this district.
+     * Returns the Titan Shifter spotted within this district.
      *
-     * @return spotted TitanShifter, or null if none
+     * @return the spotted TitanShifter, or null if none has been spotted
      */
     public TitanShifter getSpottedTitan() {
         // TODO: implement this method
@@ -115,9 +117,9 @@ public class WallDistrict {
     }
 
     /**
-     * Sets the spotted Titan Shifter in this district.
+     * Updates the Titan Shifter spotted within this district.
      *
-     * @param spottedTitan spotted TitanShifter
+     * @param spottedTitan the newly spotted TitanShifter
      */
     public void setSpottedTitan(TitanShifter spottedTitan) {
         // TODO: implement this method

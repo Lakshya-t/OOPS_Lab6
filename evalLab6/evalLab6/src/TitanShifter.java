@@ -49,14 +49,15 @@ public class TitanShifter {
         // TODO: implement this constructor
     }
 
+    // ---- Getters and setters (provided - already implemented; nothing to change) ----
+
     /**
      * Gets the shifter's name.
      *
      * @return shifter name
      */
     public String getName() {
-        // TODO: implement this method
-        return null;
+        return name;
     }
 
     /**
@@ -65,7 +66,7 @@ public class TitanShifter {
      * @param name shifter name
      */
     public void setName(String name) {
-        // TODO: implement this method
+        this.name = name;
     }
 
     /**
@@ -74,8 +75,7 @@ public class TitanShifter {
      * @return power level as Integer
      */
     public Integer getPowerLevel() {
-        // TODO: implement this method
-        return null;
+        return powerLevel;
     }
 
     /**
@@ -84,7 +84,7 @@ public class TitanShifter {
      * @param powerLevel power level as Integer
      */
     public void setPowerLevel(Integer powerLevel) {
-        // TODO: implement this method
+        this.powerLevel = powerLevel;
     }
 
     /**
@@ -93,8 +93,7 @@ public class TitanShifter {
      * @return height in meters as Double
      */
     public Double getHeightMeters() {
-        // TODO: implement this method
-        return null;
+        return heightMeters;
     }
 
     /**
@@ -103,7 +102,7 @@ public class TitanShifter {
      * @param heightMeters height in meters as Double
      */
     public void setHeightMeters(Double heightMeters) {
-        // TODO: implement this method
+        this.heightMeters = heightMeters;
     }
 
     /**
@@ -112,8 +111,7 @@ public class TitanShifter {
      * @return hostility status as Boolean
      */
     public Boolean getIsHostile() {
-        // TODO: implement this method
-        return null;
+        return isHostile;
     }
 
     /**
@@ -122,12 +120,14 @@ public class TitanShifter {
      * @param isHostile hostility status as Boolean
      */
     public void setIsHostile(Boolean isHostile) {
-        // TODO: implement this method
+        this.isHostile = isHostile;
     }
 
     /**
-     * Non-static inner class representing the titan transformation form.
-     * Has direct access to outer TitanShifter's instance fields.
+     * Non-static inner class representing the titan transformation form.<br>
+     * Has direct access to outer {@link TitanShifter}'s instance fields.<br>
+     * <br>
+     * <b>This class is already fully implemented and provided. Do NOT change anything in it.</b>
      */
     public class TitanForm {
 
@@ -138,12 +138,13 @@ public class TitanShifter {
         private Integer transformCount;
 
         /**
-         * Constructor 1: Initializes transformation count from string representation.
+         * Constructor 1: Parses transformation count from string using {@code Integer.parseInt()}.
          *
          * @param transformCountStr transformation count as string
+         * @throws NumberFormatException if transformCountStr is null or non-numeric
          */
         public TitanForm(String transformCountStr) {
-            // TODO: implement this constructor
+            this.transformCount = Integer.parseInt(transformCountStr);
         }
 
         /**
@@ -152,7 +153,7 @@ public class TitanShifter {
          * @param transformCount count as int
          */
         public TitanForm(int transformCount) {
-            // TODO: implement this constructor
+            this.transformCount = transformCount;
         }
 
         /**
@@ -161,8 +162,7 @@ public class TitanShifter {
          * @return number of transformations as Integer
          */
         public Integer getTransformCount() {
-            // TODO: implement this method
-            return null;
+            return transformCount;
         }
 
         /**
@@ -171,25 +171,25 @@ public class TitanShifter {
          * @param transformCount count as Integer
          */
         public void setTransformCount(Integer transformCount) {
-            // TODO: implement this method
+            this.transformCount = transformCount;
         }
 
         /**
-         * Calculates power surge during titan form transformation.
-         * Formula: powerLevel * transformCount * 2
+         * Calculates power surge during titan form transformation.<br>
+         * Formula: {@code powerLevel * transformCount * 2}<br>
+         * Directly reads outer class's {@code powerLevel} field.
          *
          * @return combat power surge as Integer
          */
         public Integer getPowerSurge() {
-            // TODO: implement this method
-            return null;
+            return powerLevel * transformCount * 2;
         }
     }
 
     /**
-     * Static nested class representing the Coordinate (Founding Titan) ability.
-     * Does NOT have implicit access to enclosing instance fields; requires an explicit object reference.
-     * Static members of the enclosing class can be accessed directly.
+     * Static nested class representing the Coordinate (Founding Titan) ability.<br>
+     * Its getter and setter are provided (nothing to change there); only
+     * {@code triggerCoordinate} needs to be implemented.
      */
     public static class CoordinatePower {
 
@@ -205,8 +205,7 @@ public class TitanShifter {
          * @return active controlled titan count as Integer
          */
         public static Integer getActiveTitansControlled() {
-            // TODO: implement this method
-            return null;
+            return activeTitansControlled;
         }
 
         /**
@@ -215,7 +214,7 @@ public class TitanShifter {
          * @param count count as Integer
          */
         public static void setActiveTitansControlled(Integer count) {
-            // TODO: implement this method
+            activeTitansControlled = count;
         }
 
         /**
@@ -235,25 +234,21 @@ public class TitanShifter {
     }
 
     /**
-     * Assesses a shifter's combat readiness via a 4-step boxing/unboxing sequence.
+     * Assesses a shifter's combat readiness from its initial power rating.
      * <p>
-     * NOTE: Understand this method properly. This is provided for conceptual understanding only.
-     * We have given the code for you to understand how autoboxing, unboxing, re-boxing,
-     * and non-reboxing work in sequence.
+     * First increase the power rating by 1. Using this updated power, compute:
      * </p>
-     * 1. power++ (Auto-unboxes, increments int, re-boxes into Integer)
-     * 2. Integer score = power + (power * 3); (Unboxes, computes, re-boxes)
-     * 3. int rawScore = power + (power * 3); (Unboxes, computes, NO re-boxing)
-     * 4. Returns new int[]{score, rawScore}
+     * <ul>
+     *   <li>{@code score} (stored as an {@code Integer}) = power + (power * 3)</li>
+     *   <li>{@code rawScore} (stored as an {@code int}) = power + (power * 3)</li>
+     * </ul>
+     * Return both values in the order [score, rawScore].
      *
      * @param power initial power rating as Integer
      * @return int array with [score, rawScore]
      */
     public static int[] assessCombatReadiness(Integer power) {
-        // Provided for conceptual understanding - read carefully!
-        power++;
-        Integer score = power + (power * 3);
-        int rawScore = power + (power * 3);
-        return new int[]{score, rawScore};
+        // TODO: implement this method
+        return null;
     }
 }

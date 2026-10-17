@@ -35,12 +35,13 @@ public class ScoutSquad {
     }
 
     /**
-     * Constructor 2 (Varargs Overloaded): Assembles a squad with a leader and arbitrary members.
-     * Computes squadPower as members.length * 50 + 100.
-     * Squad is not deployed initially (deployed is set to false).
+     * Constructor 2 (Varargs Overloaded): Assembles a squad with a leader and squad members.
+     * The varargs parameter may be empty (no squad members).
+     * Computes squadPower as members.length * 50 + 100, stored as an Integer.
+     * Sets deployed to the Boolean representation of false (the squad is not deployed initially).
      *
      * @param leader  squad leader's name
-     * @param members additional squad members (varargs)
+     * @param members squad members (varargs; may be empty)
      */
     public ScoutSquad(String leader, String... members) {
         this.squadLeader = leader;
@@ -49,18 +50,79 @@ public class ScoutSquad {
         this.deployed = Boolean.FALSE;
     }
 
-    // Getters and Setters
-    public String getSquadLeader() { return squadLeader; }
-    public void setSquadLeader(String squadLeader) { this.squadLeader = squadLeader; }
+    // ---- Getters and setters (provided - already implemented; nothing to change) ----
 
-    public String[] getMembers() { return members; }
-    public void setMembers(String[] members) { this.members = members; }
+    /**
+     * Gets the squad leader's name.
+     *
+     * @return leader's name
+     */
+    public String getSquadLeader() {
+        return squadLeader;
+    }
 
-    public Integer getSquadPower() { return squadPower; }
-    public void setSquadPower(Integer squadPower) { this.squadPower = squadPower; }
+    /**
+     * Sets the squad leader's name.
+     *
+     * @param squadLeader leader's name
+     */
+    public void setSquadLeader(String squadLeader) {
+        this.squadLeader = squadLeader;
+    }
 
-    public Boolean isDeployed() { return deployed; }
-    public void setDeployed(Boolean deployed) { this.deployed = deployed; }
+    /**
+     * Gets the squad members.
+     *
+     * @return array of member names
+     */
+    public String[] getMembers() {
+        return members;
+    }
+
+    /**
+     * Sets the squad members.
+     *
+     * @param members array of member names
+     */
+    public void setMembers(String[] members) {
+        this.members = members;
+    }
+
+    /**
+     * Gets the squad's combat power rating.
+     *
+     * @return squad power as Integer
+     */
+    public Integer getSquadPower() {
+        return squadPower;
+    }
+
+    /**
+     * Sets the squad's combat power rating.
+     *
+     * @param squadPower squad power as Integer
+     */
+    public void setSquadPower(Integer squadPower) {
+        this.squadPower = squadPower;
+    }
+
+    /**
+     * Gets whether the squad is deployed in active combat.
+     *
+     * @return deployment status as Boolean
+     */
+    public Boolean isDeployed() {
+        return deployed;
+    }
+
+    /**
+     * Sets whether the squad is deployed in active combat.
+     *
+     * @param deployed deployment status as Boolean
+     */
+    public void setDeployed(Boolean deployed) {
+        this.deployed = deployed;
+    }
 
     /**
      * Boosts squad power by a given bonus amount.
@@ -99,32 +161,5 @@ public class ScoutSquad {
             roster[i + 1] = members[i];
         }
         return roster;
-    }
-
-    /**
-     * Decodes an inverted distress signal broadcast by scouts during titan ambush.
-     * Reverses the order of words in the transmission string.
-     * Words should be separated by a single space with no leading or trailing spaces.
-     * <br>
-     * Useful String methods hint:
-     * <ul>
-     *   <li><code>"  hello world  ".trim()</code> &rarr; <code>"hello world"</code></li>
-     *   <li><code>"hello world".split("\\s+")</code> &rarr; <code>new String[]{"hello", "world"}</code></li>
-     * </ul>
-     *
-     * @param rawSignal original distress transmission string
-     * @return decoded signal with words in reversed order separated by a single space
-     */
-    public static String reverseDistressSignal(String rawSignal) {
-        if (rawSignal == null) return null;
-        String[] words = rawSignal.trim().split("\\s+");
-        String result = "";
-        for (int i = words.length - 1; i >= 0; i--) {
-            result = result + words[i];
-            if (i > 0) {
-                result = result + " ";
-            }
-        }
-        return result.trim();
     }
 }

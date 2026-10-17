@@ -34,7 +34,8 @@ public class BattleOfWallRose {
     private Integer totalHumanityDefenseScore;
 
     /**
-     * Initializes the tactical defense command system with empty arrays and zeroed counters.
+     * Initialise all three arrays to their max sizes; set all counters and
+     * totalHumanityDefenseScore to 0.
      */
     public BattleOfWallRose() {
         this.districts = new WallDistrict[MAX_DISTRICTS];
@@ -46,7 +47,13 @@ public class BattleOfWallRose {
         this.totalHumanityDefenseScore = Integer.valueOf(0);
     }
 
-    // Registration Methods
+    /**
+     * Add the given object to its respective array if capacity is not exceeded and the object is not null;
+     * return true on success.
+     *
+     * @param district the district to add
+     * @return true if capacity is not exceeded and the object is not null, false otherwise
+     */
     public boolean addDistrict(WallDistrict district) {
         if (district != null && districtCount < MAX_DISTRICTS) {
             districts[districtCount++] = district;
@@ -55,6 +62,13 @@ public class BattleOfWallRose {
         return false;
     }
 
+    /**
+     * Add the given object to its respective array if capacity is not exceeded and the object is not null;
+     * return true on success.
+     *
+     * @param squad the squad to register
+     * @return true if capacity is not exceeded and the object is not null, false otherwise
+     */
     public boolean registerSquad(ScoutSquad squad) {
         if (squad != null && squadCount < MAX_SQUADS) {
             activeSquads[squadCount++] = squad;
@@ -63,6 +77,13 @@ public class BattleOfWallRose {
         return false;
     }
 
+    /**
+     * Add the given object to its respective array if capacity is not exceeded and the object is not null;
+     * return true on success.
+     *
+     * @param titan the shifter encountered
+     * @return true if capacity is not exceeded and the object is not null, false otherwise
+     */
     public boolean registerTitan(TitanShifter titan) {
         if (titan != null && titanCount < MAX_TITANS) {
             encounteredTitans[titanCount++] = titan;
@@ -71,14 +92,61 @@ public class BattleOfWallRose {
         return false;
     }
 
-    // Getters
-    public Integer getTotalHumanityDefenseScore() { return totalHumanityDefenseScore; }
-    public int getDistrictCount() { return districtCount; }
-    public int getSquadCount() { return squadCount; }
-    public int getTitanCount() { return titanCount; }
+    // ---- Getters and setters (provided - already implemented; nothing to change) ----
 
     /**
-     * Deploys a single squad unit of the specified size.<br>
+     * Gets the total defense and combat score accumulated by humanity.
+     *
+     * @return total defense score as Integer
+     */
+    public Integer getTotalHumanityDefenseScore() {
+        return totalHumanityDefenseScore;
+    }
+
+    /**
+     * Gets the number of registered wall districts.
+     *
+     * @return registered district count
+     */
+    public int getDistrictCount() {
+        return districtCount;
+    }
+
+    /**
+     * Gets the number of registered Scout squads.
+     *
+     * @return registered squad count
+     */
+    public int getSquadCount() {
+        return squadCount;
+    }
+
+    /**
+     * Gets the number of encountered Titan Shifters.
+     *
+     * @return registered titan count
+     */
+    public int getTitanCount() {
+        return titanCount;
+    }
+
+    /**
+     * Finds a friendly (non-hostile) shifter among the encountered titans.
+     * Searches encounteredTitans for a shifter whose isHostile is false.
+     *
+     * @return friendly TitanShifter, or null if none available
+     */
+    public TitanShifter findFriendlyShifter() {
+        for (int i = 0; i < titanCount; i++) {
+            if (Boolean.FALSE.equals(encounteredTitans[i].getIsHostile())) {
+                return encounteredTitans[i];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Deploys a single squad unit of the specified size.
      * Demonstrates exact-match method overloading over varargs.
      *
      * @param squadSize unit size
@@ -89,8 +157,8 @@ public class BattleOfWallRose {
     }
 
     /**
-     * Deploys multiple squad units across the battle sectors using varargs.<br>
-     * Overloads {@link #deploySquadUnits(int)}.
+     * Deploys multiple squad units across the battle sectors using varargs.
+     * Overloads deploySquadUnits(int).
      *
      * @param firstSquad  size of primary unit
      * @param otherSquads sizes of additional units (varargs)
@@ -107,51 +175,36 @@ public class BattleOfWallRose {
     }
 
     /**
-     * Finds a friendly (non-hostile) shifter among the encountered titans.
+     * Master Execution Method: Coordinates the comprehensive military operation 
+     * to defend Wall Rose against the titan assault.
      *
-     * @return friendly TitanShifter, or null if none available
-     */
-    public TitanShifter findFriendlyShifter() {
-        for (int i = 0; i < titanCount; i++) {
-            if (Boolean.FALSE.equals(encounteredTitans[i].getIsHostile())) {
-                return encounteredTitans[i];
-            }
-        }
-        return null;
-    }
-
-    /**
-     * <b>Master Execution Method:</b> Coordinates the comprehensive military operation 
-     * to defend Wall Rose against the titan assault.<br>
-     * <br>
-     * <b>Operational Workflow:</b><br>
-     * 1. <b>Signal Intelligence:</b> For each registered district, decodes the radio signals 
-     *    using {@code district.decodeSignal(commandSignal, hexIntel)}. Adds the decoded urgency level 
-     *    and titan count to {@code totalHumanityDefenseScore}.<br>
-     * 2. <b>District Kill Matrices:</b> Tallies confirmed kills using 
-     *    {@code district.calculateTotalConfirmedKills()} (skipping null cells via nested loops) 
-     *    and adds to {@code totalHumanityDefenseScore}.<br>
-     * 3. <b>Titan Engagement:</b> Checks if the district has a {@code spottedTitan}:<br>
-     *    &bull; If the spotted titan is <b>hostile</b>:<br>
-     *      - Searches for an undeployed squad in {@code activeSquads} that can engage the titan 
-     *        ({@code squad.canEngage(spottedTitan)}).<br>
-     *      - If a squad can engage, marks it deployed ({@code squad.setDeployed(Boolean.TRUE)}) 
-     *        and adds its {@code squadPower} to {@code totalHumanityDefenseScore}.<br>
-     *      - If no squad can engage alone, calls on a friendly shifter (e.g. Eren):<br>
-     *        Creates an inner class transformation: {@code TitanShifter.TitanForm form = friendly.new TitanForm("2");}<br>
-     *        Retrieves the power surge via {@code form.getPowerSurge()} and boosts the first squad's power.<br>
-     *        Assesses combat readiness via {@code TitanShifter.assessCombatReadiness(friendly.getPowerLevel())} 
-     *        and adds the calculated readiness score.<br>
-     *    &bull; If the spotted titan is <b>friendly</b>:<br>
+     * Operational Workflow:
+     * 1. Signal Intelligence: For each registered district, decodes the radio signals 
+     *    using district.decodeSignal(commandSignal, hexIntel). Adds the decoded urgency level 
+     *    and titan count to totalHumanityDefenseScore.
+     * 2. District Kill Matrices: Tallies confirmed kills using 
+     *    district.calculateTotalConfirmedKills() and adds to totalHumanityDefenseScore.
+     * 3. Titan Engagement: Checks if the district has a spottedTitan:
+     *    - If the spotted titan is hostile:
+     *      - Searches for an undeployed squad in activeSquads that can engage the titan.
+     *      - If a squad can engage, marks it deployed (sets deployed to true) 
+     *        and adds its squadPower to totalHumanityDefenseScore.
+     *      - If no squad can engage alone, calls on a friendly shifter (using findFriendlyShifter()):
+     *        Creates an inner class transformation: TitanShifter.TitanForm form = friendly.new TitanForm("2");
+     *        Retrieves the power surge via form.getPowerSurge() and boosts the first undeployed squad's power.
+     *        Marks that squad as deployed and adds its updated squadPower to totalHumanityDefenseScore.
+     *        Assesses combat readiness via TitanShifter.assessCombatReadiness(friendly.getPowerLevel()) 
+     *        and adds the calculated readiness score (index 0).
+     *    - If the spotted titan is friendly (not hostile):
      *      - Triggers the Coordinate ability via static nested class: 
-     *        {@code TitanShifter.CoordinatePower.triggerCoordinate(spottedTitan, commandSignal)}.<br>
-     *      - If activated, adds the controlled titans count to {@code totalHumanityDefenseScore}.<br>
-     * 4. <b>Outcome Assessment:</b> Returns {@code true} if {@code totalHumanityDefenseScore >= 100} 
-     *    (Wall Rose successfully secured), otherwise {@code false}.
+     *        TitanShifter.CoordinatePower.triggerCoordinate(spottedTitan, commandSignal).
+     *      - If activated, adds the controlled titans count to totalHumanityDefenseScore.
+     * 4. Outcome Assessment: Returns true if totalHumanityDefenseScore >= 100 
+     *    (Wall Rose successfully secured), otherwise false.
      *
      * @param commandSignal binary operational command signal (e.g. "1010")
      * @param hexIntel      hexadecimal intel report (e.g. "FF")
-     * @return true if humanity's defense succeeds (score &gt;= 100), false otherwise
+     * @return true if humanity's defense succeeds (score >= 100), false otherwise
      */
     public boolean executeDefenseOperation(String commandSignal, String hexIntel) {
         if (commandSignal == null || hexIntel == null) {
@@ -198,10 +251,18 @@ public class BattleOfWallRose {
                             TitanShifter.TitanForm form = friendly.new TitanForm("2");
                             Integer surge = form.getPowerSurge();
 
-                            if (squadCount > 0 && activeSquads[0] != null) {
-                                activeSquads[0].boostSquadPower(surge);
-                                activeSquads[0].setDeployed(Boolean.TRUE);
-                                this.totalHumanityDefenseScore += activeSquads[0].getSquadPower();
+                            // Boost the first undeployed squad
+                            ScoutSquad target = null;
+                            for (int s = 0; s < squadCount; s++) {
+                                if (activeSquads[s] != null && !Boolean.TRUE.equals(activeSquads[s].isDeployed())) {
+                                    target = activeSquads[s];
+                                    break;
+                                }
+                            }
+                            if (target != null) {
+                                target.boostSquadPower(surge);
+                                target.setDeployed(Boolean.TRUE);
+                                this.totalHumanityDefenseScore += target.getSquadPower();
                             }
 
                             // Combat readiness assessment (autoboxing test)

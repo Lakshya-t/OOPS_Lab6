@@ -50,21 +50,84 @@ public class WallDistrict {
         this.spottedTitan = null;
     }
 
-    // Getters and Setters
-    public String getDistrictName() { return districtName; }
-    public void setDistrictName(String districtName) { this.districtName = districtName; }
+    // ---- Getters and setters ----
 
-    public Integer getWallIntegrity() { return wallIntegrity; }
-    public void setWallIntegrity(Integer wallIntegrity) { this.wallIntegrity = wallIntegrity; }
+    /**
+     * Returns the name of this district.
+     *
+     * @return the district name
+     */
+    public String getDistrictName() {
+        return districtName;
+    }
 
-    public Integer[][] getTitanKillMatrix() { return titanKillMatrix; }
-    public void setTitanKillMatrix(Integer[][] titanKillMatrix) { this.titanKillMatrix = titanKillMatrix; }
+    /**
+     * Updates the name of this district.
+     *
+     * @param districtName the new district name
+     */
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
+    }
 
-    public TitanShifter getSpottedTitan() { return spottedTitan; }
-    public void setSpottedTitan(TitanShifter spottedTitan) { this.spottedTitan = spottedTitan; }
+    /**
+     * Returns the defense integrity percentage of the outer gates.
+     *
+     * @return the wall integrity
+     */
+    public Integer getWallIntegrity() {
+        return wallIntegrity;
+    }
+
+    /**
+     * Updates the defense integrity percentage of the outer gates.
+     *
+     * @param wallIntegrity the new wall integrity
+     */
+    public void setWallIntegrity(Integer wallIntegrity) {
+        this.wallIntegrity = wallIntegrity;
+    }
+
+    /**
+     * Returns the 2D grid of confirmed titan kills (rows are sectors, columns are squads).
+     *
+     * @return the titan kill matrix
+     */
+    public Integer[][] getTitanKillMatrix() {
+        return titanKillMatrix;
+    }
+
+    /**
+     * Updates the 2D grid of confirmed titan kills (rows are sectors, columns are squads).
+     *
+     * @param titanKillMatrix the new titan kill matrix
+     */
+    public void setTitanKillMatrix(Integer[][] titanKillMatrix) {
+        this.titanKillMatrix = titanKillMatrix;
+    }
+
+    /**
+     * Returns the Titan Shifter spotted within this district.
+     *
+     * @return the spotted TitanShifter, or null if none has been spotted
+     */
+    public TitanShifter getSpottedTitan() {
+        return spottedTitan;
+    }
+
+    /**
+     * Updates the Titan Shifter spotted within this district.
+     *
+     * @param spottedTitan the newly spotted TitanShifter
+     */
+    public void setSpottedTitan(TitanShifter spottedTitan) {
+        this.spottedTitan = spottedTitan;
+    }
 
     /**
      * Calculates total confirmed titan kills across all sectors and squads.
+     * Traverses the 2D titanKillMatrix using nested loops.
+     * Note that some cells may be null where no squad was deployed; safely skip them.
      *
      * @return total confirmed kills as Integer
      */
@@ -83,7 +146,14 @@ public class WallDistrict {
     }
 
     /**
-     * Verifies whether two outpost sighting reports identify the exact same titan.
+     * Verifies whether two outpost sighting reports identify the same titan.
+     * Parses reportId1 and reportId2 to Integer.
+     * Compares the two parsed values.
+     *
+     * Hint: In Java, comparing objects using == compares memory references,
+     * like comparing whether two array variables point to the same array object.
+     * For example, comparing string or number representations like "100" and "100"
+     * might behave differently depending on how object comparison is done.
      *
      * @param reportId1 first titan report ID string
      * @param reportId2 second titan report ID string
@@ -97,7 +167,7 @@ public class WallDistrict {
 
     /**
      * Decodes military radio signals transmitted along the wall.
-     * Decodes binarySignal using base-2 radix and hexSignal using base-16 radix.
+     * Decodes binarySignal using base 2 and hexSignal using base 16.
      *
      * @param binarySignal urgency encoded in binary
      * @param hexSignal    titan count encoded in hexadecimal
